@@ -15,6 +15,9 @@ const Quill = window.Quill || _Quill
 
 // import { ImageResize } from 'quill-image-resize-module';
 // Quill.register('modules/imageResize', ImageResize);
+
+const endpoint_base = "http://172.105.220.106:7777"
+
 const defaultOptions = {
   theme: 'snow',
   boundary: document.body,
@@ -68,6 +71,9 @@ export default {
   name: 'quill-editor',
   data() {
     return {
+      title : "title",
+      tag : "tag",
+      img_url : "img_url",
       _options: {},
       _content: '',
       defaultOptions
@@ -100,8 +106,20 @@ export default {
   },
   methods: {
 
+
     sendArticle : function (){
-      console.log(this._content)      
+      console.log(this._content)
+      this.axios.post(endpoint_base + '/new_article',
+          { 
+            title : this.title,
+            content : this._content,
+            tag : this.tag,
+            img_url : this.img_url,
+          }
+      )
+      .then(response => {
+        console.log(response)
+      })  
     },
 
     // Init Quill instance
