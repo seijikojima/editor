@@ -2,7 +2,9 @@
   <div class="quill-editor">
     <slot name="toolbar"></slot>
     <div ref="editor"></div>
+    <div class="btn_frame">
     <button class="btn" v-on:click="sendArticle()">SendArticle</button>
+    </div>
   </div>
 </template>
 
@@ -20,18 +22,18 @@ const defaultOptions = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ 'header': 1 }, { 'header': 2 }],
+      // [{ 'header': 1 }, { 'header': 2 }], // header
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],
-      [{ 'indent': '-1' }, { 'indent': '+1' }],
-      [{ 'direction': 'rtl' }],
-      [{ 'size': ['small', false, 'large', 'huge'] }],
+      // [{ 'script': 'sub' }, { 'script': 'super' }], // 数式
+      // [{ 'indent': '-1' }, { 'indent': '+1' }], // indent
+      // [{ 'direction': 'rtl' }],　// 戦闘か最後か
+      // [{ 'size': ['small', false, 'large', 'huge'] }], // text size
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       [{ 'color': [] }, { 'background': [] }],
       [{ 'font': [] }],
       [{ 'align': [] }],
-      ['clean'],
-      ['link', 'image', 'video']
+      // ['clean'],
+      ['link', 'image'] // 'video'外した．
     ],
   },
   placeholder: 'Insert text here ...',
@@ -98,8 +100,8 @@ export default {
   },
   methods: {
 
-    sendArticle(){
-      console.log(this._content)
+    sendArticle : function (){
+      console.log(this._content)      
     },
 
     // Init Quill instance
@@ -109,6 +111,8 @@ export default {
         this._options = Object.assign({}, this.defaultOptions, this.globalOptions, this.options)
         // Instance
         this.quill = new Quill(this.$refs.editor, this._options)
+
+        // this.content = "hoge"
         
         this.quill.enable(false)
         // Set editor content
@@ -185,24 +189,31 @@ body {
 }
 
 .quill-editor{
-  border : solid 1px;
+  /* border : solid 1px; */
+  height : 85vh;
+}
+
+.btn_frame{
+  width : 100px;
+  margin : 1px auto 1px auto;
 }
 
 .btn {
+  border-radius:30px;
 	display: block;
 	position: relative;
 	width: 100px;
 	padding: 0.8em;
 	text-align: center;
 	text-decoration: none;
-	color: #000;
-	background: #fff;
+	color: #fff;
+	background-color: rgb(248, 156, 27);
 }
 .btn:hover {
 	 cursor: pointer;
 	 text-decoration: none;
    color:#fff;
-	background:#000;
+	background:rgb(248, 147, 6);
 }
 
 
